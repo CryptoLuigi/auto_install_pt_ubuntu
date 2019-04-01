@@ -9,5 +9,5 @@ Once PT is install the user will be able to enter all mandatory information.
 
 
 ```
-curl https://raw.githubusercontent.com/CryptoLuigi/auto_install_pt_ubuntu/blob/master/auto_install_pt_ubuntu.sh | bash
+curl https://raw.githubusercontent.com/CryptoLuigi/auto_install_pt_ubuntu/master/auto_install_pt_ubuntu.sh | bash
  ```
