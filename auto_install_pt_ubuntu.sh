@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/bin/bash
 #Script for the automatic installation for Profit Trailer on Ubuntu
 #Script By CryptoLuigi (Michael Ruperto)
 #Date: 2019-04-01
