@@ -77,23 +77,23 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
 	do
    	case $opt in
 	 	"BINANCE")
-            	sed -i -e"s/^trading.exchange =.*/trading.exchange = BINANCE/" /var/opt/$server/application.properties
+            	sed -ie "s/^trading.exchange =.*/trading.exchange = BINANCE/" /var/opt/$server/application.properties
 		break
             	;;
         	"BITTREX")
-            	sed -i -e"s/^trading.exchange =.*/trading.exchange = BITTREX/" /var/opt/$server/application.properties
+            	sed -ie "s/^trading.exchange =.*/trading.exchange = BITTREX/" /var/opt/$server/application.properties
 		break
             	;;
         	"POLONIEX")
-            	sed -i -e"s/^trading.exchange =.*/trading.exchange = POLONIEX/" /var/opt/$server/application.properties
+            	sed -ie "s/^trading.exchange =.*/trading.exchange = POLONIEX/" /var/opt/$server/application.properties
 		break
             	;;
         	"KUCOIN")
-            	sed -i -e"s/^trading.exchange =.*/trading.exchange = KUCOIN/" /var/opt/$server/application.properties
+            	sed -ie "s/^trading.exchange =.*/trading.exchange = KUCOIN/" /var/opt/$server/application.properties
 		break
             	;;
         	"HUOBI")
-            	sed -i -e"s/^trading.exchange =.*/trading.exchange = HUOBI/" /var/opt/$server/application.properties
+            	sed -ie "s/^trading.exchange =.*/trading.exchange = HUOBI/" /var/opt/$server/application.properties
 		break
             	;;
         	"Quit")
