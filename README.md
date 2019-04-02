@@ -13,13 +13,13 @@ Once PT is configured the script will ask the user if they want to start the bot
 
 ```
 Please note default API must be registered with the Profit Trailer bot on Discord.
-Without registering your default API key with bot will not start.
+## Without registering your default API key with bot will not start.
  ```
 
 ```
 wget https://raw.githubusercontent.com/CryptoLuigi/auto_install_pt_ubuntu/master/auto_install_pt_ubuntu.sh
 
-chmod +x auto_install_pt_ubuntu.sh
+chmod +x ./auto_install_pt_ubuntu.sh
 
 ./auto_install_pt_ubuntu.sh
  ```
