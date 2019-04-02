@@ -10,6 +10,7 @@ read -p "Enter the name of your bot:" server
 mkdir -p /var/opt/$server
 cd /var/opt/$server
 sudo apt-get update
+
 read -p "Do you want install Java 8?(y/n)" -n 1 -r
 if [[ $REPLY =~ ^[Yy]$ ]]; then
 	echo
@@ -46,7 +47,7 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
 	chmod +x ProfitTrailer.jar
 fi
 
-sed -i -e"s/^server.sitename =.*/server.sitename = $server/" /var/opt/$server/application.properties
+sed -ie "s/^server.sitename =.*/server.sitename = $server/" /var/opt/$server/application.properties
 
 sed -ie "s/profit-trailer/profit-trailer-$server/" /var/opt/$server/pm2-ProfitTrailer.json
 
@@ -74,49 +75,51 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
 	options=("BINANCE" "BITTREX" "POLONIEX" "KUCOIN" "HUOBI" "Quit")
 	select opt in "${options[@]}"
 	do
-    case $opt in
-        "BINANCE")
-            sed -i -e"s/^trading.exchange =.*/trading.exchange = BINANCE/" /var/opt/$server/application.properties
-			break
-            ;;
-        "BITTREX")
-            sed -i -e"s/^trading.exchange =.*/trading.exchange = BITTREX/" /var/opt/$server/application.properties
-			break
-            ;;
-        "POLONIEX")
-            sed -i -e"s/^trading.exchange =.*/trading.exchange = POLONIEX/" /var/opt/$server/application.properties
-			break
-            ;;
-        "KUCOIN")
-            sed -i -e"s/^trading.exchange =.*/trading.exchange = KUCOIN/" /var/opt/$server/application.properties
-			break
-            ;;
-        "HUOBI")
-            sed -i -e"s/^trading.exchange =.*/trading.exchange = HUOBI/" /var/opt/$server/application.properties
-			break
-            ;;
-        "Quit")
-            break
-            ;;
-        *) echo "invalid option $REPLY";;
-    esac
+   	case $opt in
+	 	"BINANCE")
+            	sed -i -e"s/^trading.exchange =.*/trading.exchange = BINANCE/" /var/opt/$server/application.properties
+		break
+            	;;
+        	"BITTREX")
+            	sed -i -e"s/^trading.exchange =.*/trading.exchange = BITTREX/" /var/opt/$server/application.properties
+		break
+            	;;
+        	"POLONIEX")
+            	sed -i -e"s/^trading.exchange =.*/trading.exchange = POLONIEX/" /var/opt/$server/application.properties
+		break
+            	;;
+        	"KUCOIN")
+            	sed -i -e"s/^trading.exchange =.*/trading.exchange = KUCOIN/" /var/opt/$server/application.properties
+		break
+            	;;
+        	"HUOBI")
+            	sed -i -e"s/^trading.exchange =.*/trading.exchange = HUOBI/" /var/opt/$server/application.properties
+		break
+            	;;
+        	"Quit")
+            	break
+            	;;
+        	*) 
+		echo "invalid option $REPLY"
+		;;
+    	esac
 	done
 	#Default API
 	echo
 	read -p "Enter your Default API key: " default_api_key
-	echo "$default_api_key" | sed -i -e"s/^default_api_key =.*/default_api_key = $default_api_key/" /var/opt/$server/application.properties
+	echo "$default_api_key" | sed -ie "s/^default_api_key =.*/default_api_key = $default_api_key/" /var/opt/$server/application.properties
 	#Default API Secret
 	echo
 	read -p "Enter your Default API secret key: " default_api_secret
-	echo "$default_api_secret" | sed -i -e"s/^default_api_secret =.*/default_api_secret = $default_api_secret/" /var/opt/$server/application.properties
+	echo "$default_api_secret" | sed -ie "s/^default_api_secret =.*/default_api_secret = $default_api_secret/" /var/opt/$server/application.properties
 	#Second API Key
 	echo
 	read -p "Enter your second API key: " trading_api_key
-	echo "$trading_api_key" | sed -i -e"s/^trading_api_key =.*/trading_api_key = $trading_api_key/" /var/opt/$server/application.properties
+	echo "$trading_api_key" | sed -ie "s/^trading_api_key =.*/trading_api_key = $trading_api_key/" /var/opt/$server/application.properties
 	#Second API Secret
 	echo
 	read -p "Enter your second API secret key: " trading_api_secret
-	echo "$trading_api_secret" | sed -i -e"s/^trading_api_secret =.*/trading_api_secret = $trading_api_secret/" /var/opt/$server/application.properties
+	echo "$trading_api_secret" | sed -ie "s/^trading_api_secret =.*/trading_api_secret = $trading_api_secret/" /var/opt/$server/application.properties
 fi
 
 echo
