@@ -43,11 +43,12 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
 	mv /var/opt/$server/ProfitTrailer-$version/* /var/opt/$server/
 	rmdir ProfitTrailer-$version
 	rm ProfitTrailer-$version.zip
-	mv /var/opt/$server/pm2-ProfitTrailer.json /var/opt/$server/pm2-ProfitTrailer-$server.json
 	chmod +x ProfitTrailer.jar
 fi
 
 sed -i -e"s/^server.sitename =.*/server.sitename = $server/" /var/opt/$server/application.properties
+
+sed -ie "s/profit-trailer/profit-trailer-$server/" /var/opt/$server/pm2-ProfitTrailer.json
 
 echo
 read -p "Do you want to change the default port?(8081)" -n 1 -r
@@ -123,7 +124,7 @@ echo "Be sure to register your Default API key with the discord chat bot before 
 echo
 read -p "Do you want start Profit Trailer?(y/n)" -n 1 -r
 if [[ $REPLY =~ ^[Yy]$ ]]; then
-	pm2 start pm2-ProfitTrailer-$server.json
+	pm2 start pm2-ProfitTrailer.json
 fi
 pm2 save
 pm2 startup
