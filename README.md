@@ -13,7 +13,7 @@ Once PT is configured the script will ask the user if they want to start the bot
 
 ```
 Please note default API must be registered with the Profit Trailer bot on Discord.
-## Without registering your default API key with bot will not start.
+Without registering your default API key with bot will not start.
  ```
 
 ```
