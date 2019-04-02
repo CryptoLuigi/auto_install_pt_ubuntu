@@ -3,6 +3,9 @@
 #Script By CryptoLuigi (Michael Ruperto)
 #Date: 2019-04-01
 
+version=$(curl -s https://api.github.com/repos/taniman/profit-trailer/releases | grep tag_name | cut -d '"' -f 4 | sed -n '1p')
+lastestdownload=$(curl -s https://api.github.com/repos/taniman/profit-trailer/releases | grep browser_download_url | cut -d '"' -f 4 | sed -n '1p')
+
 read -p "Enter the name of your bot:" server
 mkdir -p /var/opt/$server
 cd /var/opt/$server
@@ -32,17 +35,27 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
 fi
 
 echo
-read -p "Do you want install Profit Trailer 2.2.12?(y/n)" -n 1 -r
+read -p "Do you want install Profit Trailer $version?(y/n)" -n 1 -r
 if [[ $REPLY =~ ^[Yy]$ ]]; then
-	wget https://github.com/taniman/profit-trailer/releases/download/2.2.12/ProfitTrailer-2.2.12.zip
+	wget $lastestdownload
 	sudo apt-get install unzip
-	unzip /var/opt/$server/ProfitTrailer-2.2.12.zip
-	mv /var/opt/$server/ProfitTrailer-2.2.12/* /var/opt/$server/
-	rmdir ProfitTrailer-2.2.12
-	rm ProfitTrailer-2.2.12.zip
+	unzip /var/opt/$server/ProfitTrailer-$version.zip
+	mv /var/opt/$server/ProfitTrailer-$version/* /var/opt/$server/
+	rmdir ProfitTrailer-$version
+	rm ProfitTrailer-$version.zip
+	mv /var/opt/$server/pm2-ProfitTrailer.json /var/opt/$server/pm2-ProfitTrailer-$server.json
 	chmod +x ProfitTrailer.jar
 fi
+
 sed -i -e"s/^server.sitename =.*/server.sitename = $server/" /var/opt/$server/application.properties
+
+echo
+read -p "Do you want to change the default port?(8081)" -n 1 -r
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+	read -p "What port do you want to assign the bot to?(Default 8081)" port
+	echo "$port" | sed -i -e"s/^server.port =.*/server.port = $port/" /var/opt/$server/application.properties
+fi
+
 echo
 read -p "Do you want to enter your License now?(y/n)" -n 1 -r
 if [[ $REPLY =~ ^[Yy]$ ]]; then
@@ -110,5 +123,7 @@ echo "Be sure to register your Default API key with the discord chat bot before 
 echo
 read -p "Do you want start Profit Trailer?(y/n)" -n 1 -r
 if [[ $REPLY =~ ^[Yy]$ ]]; then
-	pm2 start pm2-ProfitTrailer.json
+	pm2 start pm2-ProfitTrailer-$server.json
 fi
+pm2 save
+pm2 startup
