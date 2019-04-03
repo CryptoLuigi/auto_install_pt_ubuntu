@@ -138,7 +138,7 @@ if [[ $# -eq 0 ]]; then
             			sed -i -e"s/^trading.exchange =.*/trading.exchange = HUOBI/" /var/opt/$server/application.properties
 				break
         		;;
-       		 	"Quit")
+       			"Quit")
         	    		break
         		;;
         		*) 
@@ -171,19 +171,29 @@ if [[ $# -eq 0 ]]; then
 	fi
 	exit
 fi
+
+#System updates, assigns argument 1 to server, then create directories
+sudo apt-get update
 server=$1
 botname
+
+#For Argument 2: If Y is selected, script will reinstall Java, npm and pt, then apply settings
 if [[ $2 =~ ^[Yy]$ ]]; then
 	javaremove
-	javaremove
+	javasetup
 	npmsetup
 	ptsetup
 	applyproperties
+#For Argument 2: If N is selected, script will install pt and apply settings
 elif [[ $2 =~ ^[Nn]$ ]]; then
 	ptsetup
 	applyproperties
+else
+	echo "2nd argument must be y or n"
+	exit
 fi
 
+#For Argument 3: Assigns port number. Arugment must be a number
 if [[ $3 =~ ^[0-9]+$ ]]; then
 	port=$3
 	portsetup
@@ -192,49 +202,59 @@ else
 	exit
 fi
 
+#For Argument 4: Assigns the exchange, must select number between [1-6]
 if [[ $4 =~ 1 ]]; then
 	sed -i -e"s/^trading.exchange =.*/trading.exchange = BINANCE/" /var/opt/$server/application.properties
 elif [[ $4 =~ 2 ]]; then
 	sed -i -e"s/^trading.exchange =.*/trading.exchange = BITTREX/" /var/opt/$server/application.properties
 elif [[ $4 =~ 3 ]]; then
-        sed -i -e"s/^trading.exchange =.*/trading.exchange = POLONIEX/" /var/opt/$server/application.properties
+    sed -i -e"s/^trading.exchange =.*/trading.exchange = POLONIEX/" /var/opt/$server/application.properties
 elif [[ $4 =~ 4 ]]; then
 	sed -i -e"s/^trading.exchange =.*/trading.exchange = KUCOIN/" /var/opt/$server/application.properties
 elif [[ $4 =~ 5 ]]; then
-        sed -i -e"s/^trading.exchange =.*/trading.exchange = HUOBI/" /var/opt/$server/application.properties
+    sed -i -e"s/^trading.exchange =.*/trading.exchange = HUOBI/" /var/opt/$server/application.properties
 else
-	echo "Enter the number corresponding with the correct exchange you want to use"
+	echo "Enter the number corresponding with the correct exchange you want to use [1 - 6]"
 	exit
 fi
-	
+
+#For Argument 5: Assigns License key to properties. Checks to see if it's over 1 character long	
 if [[ ${#5} -gt 1 ]]; then
 	license=$5
 	echo "$license" | sed -i -e"s/^license =.*/license = $license/" /var/opt/$server/application.properties
 else
 	echo "enter valid License"
+	exit
 fi
 	
+#For Argument 6: Assigns API key to properties. Checks to see if it's over 1 character long	
 if [[ ${#6} -gt 1 ]]; then
 	default_api_key=$6
 	echo "$default_api_key" | sed -i -e"s/^default_api_key =.*/default_api_key = $default_api_key/" /var/opt/$server/application.properties
 else
 	echo "enter valid API key"
+	exit
 fi
 	
+#For Argument 7: Assigns Secret API key to properties. Checks to see if it's over 1 character long		
 if [[ ${#7} -gt 1 ]]; then
 	default_api_secret=$7
 	echo "$default_api_secret" | sed -i -e"s/^default_api_secret =.*/default_api_secret = $default_api_secret/" /var/opt/$server/application.properties
 else
 	echo "enter valid API Secret key"
+	exit
 fi
-	
+
+#For Argument 8: Assigns API key to properties. Checks to see if it's over 1 character long		
 if [[ ${#8} -gt 1 ]]; then
 	trading_api_key=$8
 	echo "$trading_api_key" | sed -i -e"s/^trading_api_key =.*/trading_api_key = $trading_api_key/" /var/opt/$server/application.properties
 else
 	echo "enter valid API key"
+	exit
 fi
-	
+
+#For Argument 9: Assigns Secret API key to properties. Checks to see if it's over 1 character long		
 if [[ ${#9} -gt 1 ]]; then
 	trading_api_secret=$9
 	echo "$trading_api_secret" | sed -i -e"s/^trading_api_secret =.*/trading_api_secret = $trading_api_secret/" /var/opt/$server/application.properties
@@ -242,8 +262,12 @@ else
 	echo "enter valid API Secret key"
 fi
 
+#For Argument 10: If y is selected PT will start. If 
 if [[ $10 =~ ^[Yy]$ ]]; then
 	ptstart
 elif [[ $10 =~ ^[Nn]$ ]]; then
 	echo "PT not started"
+else
+	echo "For argument 10 please select y/n"
+	exit
 fi
