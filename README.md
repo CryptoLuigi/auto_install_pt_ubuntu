@@ -1,8 +1,9 @@
 # Automatic installation of Profit Trailer on Ubuntu
 ---
-# By: CryptoLuigi
+## By: CryptoLuigi
 
-## This script is designed to automatically install Profit Trailer crypto trading bot.
+### This script is designed to automatically install Profit Trailer crypto trading bot.
+#### Click link below to learn more about Profit Trailer
 https://profittrailer.com/pt/ovlx/
 
 When running this script, the user will be prompted for the name of the bot.
