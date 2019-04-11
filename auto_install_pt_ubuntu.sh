@@ -258,12 +258,12 @@ else
 fi
 
 #For Argument 8: Assigns API key to properties. Checks to see if it's over 1 character long		
-if [[ $1 -eq 0 ]];then
+if [[ ${#1} -eq 1 ]];then
 	shift
 else
 	if [[ ${#1} -gt 1 ]]; then
 		trading_api_key=$1
-		echo "trading_api_key =" >> /var/opt/$server/application.properties
+		echo -e "\ntrading_api_key =" >> /var/opt/$server/application.properties
 		echo "$trading_api_key" | sed -i -e"s/^trading_api_key =.*/trading_api_key = $trading_api_key/" /var/opt/$server/application.properties
 		shift
 	else
@@ -273,12 +273,12 @@ else
 fi
 
 #For Argument 9: Assigns Secret API key to properties. Checks to see if it's over 1 character long
-if [[ $1 -eq 0 ]];then
+if [[ ${#1} -eq 1 ]];then
 	shift
 else
 	if [[ ${#1} -gt 1 ]]; then
 		trading_api_secret=$1
-		echo "trading_api_secret =" >> /var/opt/$server/application.properties
+		echo -e "\ntrading_api_secret =" >> /var/opt/$server/application.properties
 		echo "$trading_api_secret" | sed -i -e"s/^trading_api_secret =.*/trading_api_secret = $trading_api_secret/" /var/opt/$server/application.properties
 		shift
 	else
