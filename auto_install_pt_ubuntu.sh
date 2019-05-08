@@ -152,12 +152,6 @@ if [[ $# -eq 0 ]]; then
 		echo
 		read -p "Enter your Default API secret key: " default_api_secret
 		echo "$default_api_secret" | sed -i -e"s/^default_api_secret =.*/default_api_secret = $default_api_secret/" /var/opt/$server/application.properties
-		echo
-		read -p "Enter your second API key: " trading_api_key
-		echo "$trading_api_key" | sed -i -e"s/^trading_api_key =.*/trading_api_key = $trading_api_key/" /var/opt/$server/application.properties
-		echo
-		read -p "Enter your second API secret key: " trading_api_secret
-		echo "$trading_api_secret" | sed -i -e"s/^trading_api_secret =.*/trading_api_secret = $trading_api_secret/" /var/opt/$server/application.properties
 	fi
 
 	echo
@@ -257,37 +251,8 @@ else
 	exit
 fi
 
-#For Argument 8: Assigns API key to properties. Checks to see if it's over 1 character long		
-if [[ ${#1} -eq 1 ]];then
-	shift
-else
-	if [[ ${#1} -gt 1 ]]; then
-		trading_api_key=$1
-		echo -e "\ntrading_api_key =" >> /var/opt/$server/application.properties
-		echo "$trading_api_key" | sed -i -e"s/^trading_api_key =.*/trading_api_key = $trading_api_key/" /var/opt/$server/application.properties
-		shift
-	else
-		echo "enter valid API key"
-		exit
-	fi
-fi
 
-#For Argument 9: Assigns Secret API key to properties. Checks to see if it's over 1 character long
-if [[ ${#1} -eq 1 ]];then
-	shift
-else
-	if [[ ${#1} -gt 1 ]]; then
-		trading_api_secret=$1
-		echo -e "\ntrading_api_secret =" >> /var/opt/$server/application.properties
-		echo "$trading_api_secret" | sed -i -e"s/^trading_api_secret =.*/trading_api_secret = $trading_api_secret/" /var/opt/$server/application.properties
-		shift
-	else
-		echo "enter valid API Secret key"
-		exit
-	fi
-fi
-
-#For Argument 10: If y is selected PT will start. If 
+#For Argument 7: If y is selected PT will start. If 
 if [[ $1 =~ ^[Yy]$ ]]; then
 	ptstart
 elif [[ $1 =~ ^[Nn]$ ]]; then
