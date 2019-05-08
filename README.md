@@ -35,12 +35,11 @@ For automatic installation enter all the required arguments
 ```
 Example usage
 
-./auto_install_pt_ubuntu.sh botname [y/n] Port [1-5] Licensekey DEFAPI DEFSEC TRADAPI TRADSEC [y-n]
+./auto_install_pt_ubuntu.sh botname [y/n] Port [1-5] Licensekey DEFAPI DEFSEC [y-n]
 
-./auto_install_pt_ubuntu.sh MoneyMachine n 8085 1 Scv32d3 d323rd ds3df3 s3refs3 sdf3sdf3 y
+./auto_install_pt_ubuntu.sh MoneyMachine n 8085 1 Scv32d3 d323rd ds3df3 y
 
 
-Note TRADAPI and TRADSEC are now optional. Use 0 value to exclude.
 4th arugment is the exhange. 1=Binance 2=Bittrex 3=Poloniex 4=Kucoin 5=Huobi
 First [y/n] is if this is the first install. If yes will install Java.
 Last [y/n] is if you want to start up Profit trailer now
